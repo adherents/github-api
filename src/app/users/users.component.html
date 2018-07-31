@@ -1,0 +1,33 @@
+<div>
+  <div class="form-group">
+    <div class="alert alert-danger" *ngIf="hasError">
+      User name is invalid!
+    </div>
+    <input 
+      type="name"
+      name="name"
+      [ngClass]="{'is-invalid': hasError }"
+      ngModel
+      #nameInput="ngModel"
+      (keyup.enter)="searchUser($event)" 
+      class="form-control" 
+      placeholder="Enter GitHub user login and hit 'Enter'">
+  </div>
+  <br>
+  <div>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let user of users">
+          <a routerLink="/repos/{{user.login}}" class="list-group-item list-group-item-action">
+            <div fxLayout="row" fxLayoutAlign="space-evenly center">
+              <div fxFlex>
+                <img src="{{user.avatar_url}}" height="100px" width="100px">
+              </div>
+              <div class="user-name" fxFlex="50">
+                <b>{{user.login}}</b>
+              </div>              
+            </div>
+          </a>
+      </li>
+    </ul>
+  </div>
+</div>

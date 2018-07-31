@@ -1,0 +1,43 @@
+<div fxLayoutAlign="center center" fxLayout="column" *ngIf="user && repos">
+  <div class="card text-center">
+    <img src="{{user.avatar_url}}" width="200px" height="200px">
+    <div class="card-body">
+      <h5 class="card-title">{{user.login}}</h5>
+      <button (click)="goBack()" class="btn btn-primary">Go back</button>
+    </div>
+  </div>
+  <br>
+  <h5>{{user.login}} repositories:</h5>
+  <br>
+  <div>    
+    <ul class="list-group">
+      <li *ngFor="let repo of repos" class="list-group-item">
+        <div (click)="ngxSmartModalService.getModal('myModal').open(); passDataToModal(repo)" fxLayout="row" fxLayoutAlign="center center" class="list-group-item list-group-item-action">
+          <div fxFlex="30">
+            <p><b>Name: </b>{{repo.name}}</p>
+          </div>
+          <div fxFlex class="repo-description">
+            <p><b>Description: </b>{{repo.description}}</p>       
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Modal template -->
+<ngx-smart-modal #myModal identifier="myModal">
+  <div class="modal-header">
+    <h4><b>{{repoTitle}}</b></h4>
+  </div>
+  <div class="modal-body">
+    <p><b>Description: </b>{{repoDescription}}</p>
+    <p><b>Language: </b>{{repoLanguage}}</p>
+    <p>
+      <b>Has issues: </b>
+      <i *ngIf="repoIssues" class="fas fa-check-circle"></i>
+      <i *ngIf="!repoIssues" class="fas fa-times-circle"></i>
+    </p>
+    <p><b>Url: </b><a href="{{repoUrl}}" target="_blanc">{{repoUrl}}</a></p>
+  </div>
+</ngx-smart-modal>
